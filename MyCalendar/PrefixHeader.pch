@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  KDBCommon
+//
+//  Created by YY on 15/7/1.
+//  Copyright (c) 2015年 YY. All rights reserved.
+//
+
+#ifndef KDBCommon_PrefixHeader_pch
+#define KDBCommon_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "NSObject+Common.h"
+#import "Macro.h"
+#import "Header.h"
+
+#endif

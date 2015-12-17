@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>9</key>
+	<dict>
+		<key>9</key>
+		<string>重阳节</string>
+	</dict>
+	<key>8</key>
+	<dict>
+		<key>15</key>
+		<string>中秋节</string>
+	</dict>
+	<key>7</key>
+	<dict>
+		<key>15</key>
+		<string>中元节</string>
+		<key>7</key>
+		<string>七夕</string>
+	</dict>
+	<key>5</key>
+	<dict>
+		<key>5</key>
+		<string>端午节</string>
+	</dict>
+	<key>12</key>
+	<dict>
+		<key>8</key>
+		<string>腊八节</string>
+		<key>23</key>
+		<string>北方小年</string>
+		<key>24</key>
+		<string>南方小年</string>
+	</dict>
+	<key>1</key>
+	<dict>
+		<key>1</key>
+		<string>春节</string>
+		<key>15</key>
+		<string>元宵节</string>
+	</dict>
+</dict>
+</plist>
