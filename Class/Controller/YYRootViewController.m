@@ -11,6 +11,7 @@
 #import "MyEventHelper.h"
 #import "YYEventViewController.h"
 #import "PickerView.h"
+#import "CustomPopoverView.h"
 
 #define kWeekViewHeight 20
 @interface YYRootViewController ()<MyCalendarViewDelegate, UIScrollViewDelegate>
@@ -23,6 +24,7 @@
     PickerView *_pickerView;
     
     UIView *_weekTitleView;
+    CustomPopoverView *_popoverView;
 }
 
 @property (nonatomic, strong) NSDate *currentDate;
@@ -173,9 +175,27 @@
     [self reloadLabel];
 }
 
-- (void)calendarView:(MyCalenderView *)gridView didSelectDate:(NSDate *)date
+- (void)calendarView:(MyCalenderView *)gridView didSelectButton:(UIButton *)button
 {
     [self reloadLabel];
+    
+    if (_popoverView == nil) {
+        _popoverView = [[CustomPopoverView alloc] init];
+        //    [popover setPopoverArrowDirection:CustomPopoverArrowDirectionDown];
+        [_popoverView setContentBackgroundColor:[UIColor whiteColor]];
+        [_popoverView setContentSize:CGSizeMake(100, 100)];
+    }
+    
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _popoverView.contentSize.width, _popoverView.contentSize.height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:contentView.bounds];
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"没有什么能够阻挡我对你的向往";
+    [contentView addSubview:label];
+    [_popoverView setContentView:contentView];
+    
+    CGRect rect = [self.view convertRect:button.frame fromView:gridView];
+    [_popoverView showPopoverFromRect:rect inView:self.view animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -15,6 +15,8 @@
 		E778DBC61C2108690095766D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E778DBC41C2108690095766D /* LaunchScreen.storyboard */; };
 		E778DBD11C2108690095766D /* MyCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E778DBD01C2108690095766D /* MyCalendarTests.m */; };
 		E778DBDC1C2108690095766D /* MyCalendarUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E778DBDB1C2108690095766D /* MyCalendarUITests.m */; };
+		E793363B1C2299380001A0DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E793363A1C2299380001A0DF /* Images.xcassets */; };
+		E793363E1C229A5C0001A0DF /* CustomPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E793363D1C229A5C0001A0DF /* CustomPopoverView.m */; };
 		E7C7523B1C210B8C008E3693 /* MyCalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C752381C210B8C008E3693 /* MyCalenderView.m */; };
 		E7C7523C1C210B8C008E3693 /* MyEventHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C7523A1C210B8C008E3693 /* MyEventHelper.m */; };
 		E7C752711C210C7F008E3693 /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C752401C210C7F008E3693 /* NSObject+Common.m */; };
@@ -80,6 +82,9 @@
 		E778DBD71C2108690095766D /* MyCalendarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCalendarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E778DBDB1C2108690095766D /* MyCalendarUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCalendarUITests.m; sourceTree = "<group>"; };
 		E778DBDD1C2108690095766D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E793363A1C2299380001A0DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E793363C1C229A5C0001A0DF /* CustomPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopoverView.h; sourceTree = "<group>"; };
+		E793363D1C229A5C0001A0DF /* CustomPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopoverView.m; sourceTree = "<group>"; };
 		E7C752361C210A97008E3693 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E7C752371C210B8C008E3693 /* MyCalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCalenderView.h; sourceTree = "<group>"; };
 		E7C752381C210B8C008E3693 /* MyCalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCalenderView.m; sourceTree = "<group>"; };
@@ -200,6 +205,7 @@
 				E778DBC41C2108690095766D /* LaunchScreen.storyboard */,
 				E778DBC71C2108690095766D /* Info.plist */,
 				E778DBBF1C2108690095766D /* MyCalendar.xcdatamodeld */,
+				E793363A1C2299380001A0DF /* Images.xcassets */,
 				E778DBB31C2108690095766D /* Supporting Files */,
 			);
 			path = MyCalendar;
@@ -257,6 +263,8 @@
 		E778DBEB1C2108C10095766D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E793363C1C229A5C0001A0DF /* CustomPopoverView.h */,
+				E793363D1C229A5C0001A0DF /* CustomPopoverView.m */,
 				E7C752941C216D99008E3693 /* PickerView.h */,
 				E7C752951C216D99008E3693 /* PickerView.m */,
 				E7C752911C216CDD008E3693 /* CustomPickerView.h */,
@@ -468,6 +476,7 @@
 				E778DBC61C2108690095766D /* LaunchScreen.storyboard in Resources */,
 				E7C752901C215A25008E3693 /* chinese_holiday.plist in Resources */,
 				E7C7528E1C215890008E3693 /* holiday.plist in Resources */,
+				E793363B1C2299380001A0DF /* Images.xcassets in Resources */,
 				E778DBC31C2108690095766D /* Assets.xcassets in Resources */,
 				E778DBBE1C2108690095766D /* Main.storyboard in Resources */,
 			);
@@ -509,6 +518,7 @@
 				E7C752861C210C7F008E3693 /* split.c in Sources */,
 				E7C752891C210F41008E3693 /* YYEventViewController.m in Sources */,
 				E7C752821C210C7F008E3693 /* qrencode.c in Sources */,
+				E793363E1C229A5C0001A0DF /* CustomPopoverView.m in Sources */,
 				E7C752851C210C7F008E3693 /* rscode.c in Sources */,
 				E778DBB51C2108690095766D /* main.m in Sources */,
 				E7C7527E1C210C7F008E3693 /* ScanViewController.m in Sources */,
@@ -665,6 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = MyCalendar/PrefixHeader.pch;
@@ -680,6 +691,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = MyCalendar/PrefixHeader.pch;

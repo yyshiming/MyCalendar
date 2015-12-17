@@ -231,8 +231,8 @@
     NSDateComponents *components = _calendarDays[index];
     self.selectedDate = [_theCalender dateFromComponents:components];
     
-    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-        [self.delegate calendarView:self didSelectDate:_selectedDate];
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectButton:)]) {
+        [self.delegate calendarView:self didSelectButton:button];
     }
 }
 - (void)calculateDaysInPreviousMonth

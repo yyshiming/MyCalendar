@@ -12,7 +12,7 @@
 
 @protocol MyCalendarViewDelegate <NSObject>
 
-- (void)calendarView:(MyCalenderView *)calendarView didSelectDate:(NSDate *)date;
+- (void)calendarView:(MyCalenderView *)calendarView didSelectButton:(UIButton *)button;
 
 @end
 @interface MyCalenderView : UIView
