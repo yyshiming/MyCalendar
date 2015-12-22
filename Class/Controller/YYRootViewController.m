@@ -7,9 +7,10 @@
 //
 
 #import "YYRootViewController.h"
+#import "YYEventViewController.h"
+#import "YYSettingViewController.h"
 #import "MyCalenderView.h"
 #import "MyEventHelper.h"
-#import "YYEventViewController.h"
 #import "PickerView.h"
 #import "CustomPopoverView.h"
 
@@ -48,12 +49,20 @@
 {
     YYEventViewController *addEvent = [[YYEventViewController alloc] init];
     addEvent.dateString = _calenderView2.dateString;
-    UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:addEvent];
+    YYBaseNavigationC *navC = [[YYBaseNavigationC alloc] initWithRootViewController:addEvent];
     [self presentViewController:navC animated:YES completion:nil];
 }
 - (void)reloadEventList
 {
     [self.tableView reloadData];
+}
+- (void)didChangeAppColor
+{
+    [_calenderView1 resetButtons];
+    [_calenderView2 resetButtons];
+    [_calenderView3 resetButtons];
+    
+    [_pickerView reloadThemeColor];
 }
 - (void)tapAction
 {
@@ -76,7 +85,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kEventDidChangedNotification object:nil];
 }
 - (void)timeButtonSetText:(NSString *)text
 {
@@ -86,7 +94,8 @@
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentCenter;
-    NSDictionary *attrs = @{NSParagraphStyleAttributeName: paragraphStyle};
+    NSDictionary *attrs = @{NSParagraphStyleAttributeName: paragraphStyle,
+                            NSForegroundColorAttributeName: [UIColor whiteColor]};
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:text attributes:attrs];
     [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:range1];
     [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:range2];
@@ -94,17 +103,26 @@
     [_timeButton setAttributedTitle:attributedStr forState:UIControlStateNormal];
     
 }
+- (void)setting
+{
+    YYSettingViewController *settingVC = [[YYSettingViewController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
 //    self.navigationItem.title = @"日历";
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(today)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeAppColor) name:kAppColorDidChangedNotification object:nil];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction)];
+    UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction)];
+    UIBarButtonItem *leftItem2 = [[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(today)];
     
-    self.navigationItem.leftBarButtonItem = leftItem;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
+
+    self.navigationItem.leftBarButtonItems = @[leftItem1, leftItem2];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -231,7 +249,7 @@
     YYEventViewController *eventVC = [[YYEventViewController alloc] init];
     eventVC.eventState = EventStateEdit;
     eventVC.contents = dict;
-    UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:eventVC];
+    YYBaseNavigationC *navC = [[YYBaseNavigationC alloc] initWithRootViewController:eventVC];
     [self presentViewController:navC animated:YES completion:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

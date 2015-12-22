@@ -9,5 +9,7 @@
 #ifndef KDBCommon_Header_h
 #define KDBCommon_Header_h
 
+#import "YYConfigure.h"
+#import "YYBaseNavigationC.h"
 
 #endif

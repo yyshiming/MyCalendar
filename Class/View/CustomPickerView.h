@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, CustomPickerViewType) {
 @property (nonatomic, strong) NSString *dateString;
 - (instancetype)initWithFrame:(CGRect)frame pickerViewType:(CustomPickerViewType)type componentSpace:(CGFloat)space;
 
+- (void)reloadAllComponents;
+
 @end
 
 

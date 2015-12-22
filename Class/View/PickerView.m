@@ -8,12 +8,13 @@
 
 #import "PickerView.h"
 
-#define kSpace 60
 #define kHeight 250
 #define kTopViewHeight 35
 #define kBottomViewHeight 50
 @implementation PickerView {
     UIView *_backgroundView;
+    UIButton *_cancleButton;
+    UIButton *_confirmButton;
     ButtonClickBlock _block;
 }
 - (instancetype)initWithType:(CustomPickerViewType)type clickButtonIndexBlock:(void (^)(CustomPickerView *, NSInteger))block
@@ -29,7 +30,8 @@
             space = 20;
         }
         
-        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(kSpace, 0, [[UIScreen mainScreen] bounds].size.width-kSpace*2, [UIScreen mainScreen].bounds.size.height/3)];
+        CGFloat leftSpace = self.viewWidth/8;
+        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(leftSpace, 0, [[UIScreen mainScreen] bounds].size.width-leftSpace*2, [UIScreen mainScreen].bounds.size.height/3)];
         _backgroundView.backgroundColor = [UIColor whiteColor];
         _backgroundView.layer.cornerRadius = 3.0;
         _backgroundView.clipsToBounds = YES;
@@ -50,7 +52,7 @@
         line1.backgroundColor = kLineColor;
         [_backgroundView addSubview:line1];
         
-        CGFloat pickerSpace = 40;
+        CGFloat pickerSpace = 20;
         self.pickerView = [[CustomPickerView alloc] initWithFrame:CGRectMake(pickerSpace, line1.maxY, _backgroundView.viewWidth-pickerSpace*2, _backgroundView.viewHeight-kTopViewHeight-kBottomViewHeight-kLineHeight*2) pickerViewType:type componentSpace:space];
         [_backgroundView addSubview:self.pickerView];
         
@@ -60,33 +62,36 @@
         
         CGFloat buttonHeight = 30;
         CGFloat buttonSpace = 30;
-        CGFloat buttonWidth = (_backgroundView.viewWidth - buttonSpace*3)/2;
-        UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [cancleButton setTitle:@"取消" forState:UIControlStateNormal];
-        [cancleButton setTitleColor:kAPPBlueColor forState:UIControlStateNormal];
-        [cancleButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [cancleButton.layer setBorderColor:[kAPPBlueColor CGColor]];
-        [cancleButton.layer setBorderWidth:kLineHeight];
-        [cancleButton.layer setCornerRadius:3.0];
-        [cancleButton setClipsToBounds:YES];
-        [cancleButton setTag:0];
-        [cancleButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [cancleButton setFrame:CGRectMake(buttonSpace, line2.maxY+(kBottomViewHeight-buttonHeight)/2, buttonWidth, buttonHeight)];
-        [_backgroundView addSubview:cancleButton];
         
-        UIButton *confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [confirmButton setTitle:@"确定" forState:UIControlStateNormal];
-        [confirmButton setBackgroundColor:kAPPBlueColor];
-        [confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [confirmButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [confirmButton.layer setBorderColor:[kAPPBlueColor CGColor]];
-        [confirmButton.layer setBorderWidth:kLineHeight];
-        [confirmButton.layer setCornerRadius:3.0];
-        [confirmButton setClipsToBounds:YES];
-        [confirmButton setTag:1];
-        [confirmButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [confirmButton setFrame:CGRectMake(buttonSpace+cancleButton.maxX, cancleButton.originY, buttonWidth, buttonHeight)];
-        [_backgroundView addSubview:confirmButton];
+        UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
+        
+        CGFloat buttonWidth = (_backgroundView.viewWidth - buttonSpace*3)/2;
+        _cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cancleButton setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancleButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_cancleButton setTitleColor:color forState:UIControlStateNormal];
+        [_cancleButton.layer setBorderColor:[color CGColor]];
+        [_cancleButton.layer setBorderWidth:kLineHeight];
+        [_cancleButton.layer setCornerRadius:3.0];
+        [_cancleButton setClipsToBounds:YES];
+        [_cancleButton setTag:0];
+        [_cancleButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_cancleButton setFrame:CGRectMake(buttonSpace, line2.maxY+(kBottomViewHeight-buttonHeight)/2, buttonWidth, buttonHeight)];
+        [_backgroundView addSubview:_cancleButton];
+        
+        _confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_confirmButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_confirmButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_confirmButton setBackgroundColor:color];
+        [_confirmButton.layer setBorderColor:[color CGColor]];
+        [_confirmButton.layer setBorderWidth:kLineHeight];
+        [_confirmButton.layer setCornerRadius:3.0];
+        [_confirmButton setClipsToBounds:YES];
+        [_confirmButton setTag:1];
+        [_confirmButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_confirmButton setFrame:CGRectMake(buttonSpace+_cancleButton.maxX, _cancleButton.originY, buttonWidth, buttonHeight)];
+        [_backgroundView addSubview:_confirmButton];
         
     }
     return self;
@@ -112,6 +117,19 @@
         
     }
     return self;
+}
+- (void)reloadThemeColor
+{
+    [_pickerView reloadAllComponents];
+    
+    UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
+    
+    [_cancleButton.layer setBorderColor:[color CGColor]];
+    [_cancleButton setTitleColor:color forState:UIControlStateNormal];
+    
+    [_confirmButton setBackgroundColor:color];
+    [_confirmButton.layer setBorderColor:[color CGColor]];
+    
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {

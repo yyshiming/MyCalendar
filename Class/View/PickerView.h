@@ -16,4 +16,6 @@ typedef void(^ButtonClickBlock)(CustomPickerView *pickerView, NSInteger index);
 - (instancetype)initWithType:(CustomPickerViewType)type clickButtonIndexBlock:(void(^)(CustomPickerView *pickerView, NSInteger index))block;
 - (void)show;
 
+- (void)reloadThemeColor;
+
 @end

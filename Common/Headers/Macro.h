@@ -9,6 +9,9 @@
 #ifndef KDBCommon_Macro_h
 #define KDBCommon_Macro_h
 
+#define kHasRunAppKey @"has_run_app"
+#define kDefaultAppColorKey @"default_app_color"
+
 #define kAPPBlueColor  [UIColor colorWithHex:0x48b0ef]
 #define kSelectedBackGroundColor  [UIColor colorWithHex:0xdddddd]
 

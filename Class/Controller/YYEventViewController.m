@@ -92,9 +92,11 @@ NSString *const kEventDidChangedNotification = @"EventDidChangedNotification";
         UITabBar *tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0, self.tableView.maxY, self.view.viewWidth, 49)];
         [self.view addSubview:tabBar];
         
+        UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:@"删除事件" forState:UIControlStateNormal];
-        [button setTitleColor:kAPPBlueColor forState:UIControlStateNormal];
+        [button setTitleColor:color forState:UIControlStateNormal];
         button.frame = tabBar.bounds;
         [tabBar addSubview:button];
         [button addTarget:self action:@selector(deleteButtonAction) forControlEvents:UIControlEventTouchUpInside];

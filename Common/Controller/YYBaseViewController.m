@@ -13,6 +13,45 @@
 @end
 @implementation YYBaseViewController
 
+#pragma mark - lift circle
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    MYLog(@"viewDidLoad");
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    if (kDeviceSystemVersion > 7.0) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    MYLog(@"%@",NSStringFromClass([self class]));
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    MYLog(@"viewWillAppear");
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    MYLog(@"viewWillLayoutSubviews");
+}
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    MYLog(@"viewDidLayoutSubviews");
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    MYLog(@"viewDidAppear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    MYLog(@"viewWillDisappear");
+}
 #pragma mark - 选择照片来源
 - (void)showImagePickerActionSheet
 {
@@ -62,49 +101,11 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    UIImage *editImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    //    UIImage *editImage = [info objectForKey:UIImagePickerControllerEditedImage];
     //    UIImage *postImage = [self scaleToSize:image size:CGSizeMake(200.0, 200.0)];
     //    BOOL flag = [Utility uploadImage:postImage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-}
-#pragma mark - lift circle
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    MYLog(@"viewDidLoad");
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    if (kDeviceSystemVersion > 7.0) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    MYLog(@"%@",NSStringFromClass([self class]));
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    MYLog(@"viewWillAppear");
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    MYLog(@"viewWillLayoutSubviews");
-}
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    MYLog(@"viewDidLayoutSubviews");
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    MYLog(@"viewDidAppear");
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    MYLog(@"viewWillDisappear");
 }
 #pragma mark - getter method
 

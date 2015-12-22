@@ -10,6 +10,8 @@
 #import <math.h>
 
 #define D_Value 0.2422
+#define kFontSize1 16
+#define kFontSize2 11
 @implementation MyCalenderView {
     NSCalendar *_theCalender;
     
@@ -161,19 +163,20 @@
         
         
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:title];
-        [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]} range:range1];
-        [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]} range:range2];
+        [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:kFontSize1]} range:range1];
+        [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:kFontSize2]} range:range2];
         
+        UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
         // 节气日期
         if (chineseDate.jieQiString ||
             chineseDate.chineseHolidayString ||
             chineseDate.holidayString) {
-            [attrStr addAttributes:@{NSForegroundColorAttributeName: kAPPBlueColor} range:range2];
+            [attrStr addAttributes:@{NSForegroundColorAttributeName: color} range:range2];
         }
         // 周六、周日
         NSUInteger week = [date weekOfCurrentDate];
         if (week == 1 || week == 7) {
-            [attrStr addAttributes:@{NSForegroundColorAttributeName: kAPPBlueColor} range:range1];
+            [attrStr addAttributes:@{NSForegroundColorAttributeName: color} range:range1];
         }
         // 上个月或下个月的日期颜色
         if ([_daysInPreviousMonth containsObject:components] ||
@@ -378,7 +381,6 @@
 @implementation ChineseDate {
     NSDate *_theDate;
 }
-
 + (instancetype)chineseDateWithDate:(NSDate *)date
 {
     return [[self alloc] initWithDate:date];
@@ -429,20 +431,66 @@
         
         _fullString = [NSString stringWithFormat:@"%@%@%@%@", _yearString, _shengXiaoString, _monthString, _dayString];
         
-        [self calculateJieQi];
+        _jieQiString = [self calculateJieQiWithDate:_theDate];     // 节气
+        _holidayString = [self configureHolidayWithDate:_theDate]; // 西方节日
+        _chineseHolidayString = [self configureChineseHolidayWithDate:_theDate]; // 中国节日
         
-        [self configureHoliday];
-        [self configureChineseHoliday];
+        
+        // 特殊节日
+        NSDate *date = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:15 toDate:_theDate options:NSCalendarWrapComponents];
+        if ([[self calculateJieQiWithDate:date] isEqualToString:@"春分"]) {
+            _holidayString = @"清明节";
+        }
+        
+        
+        NSCalendar *localeCalendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [localeCalendar components:unitFlags fromDate:date];
+        if (components.month == 5) {
+            NSInteger count = 0;
+            for (NSInteger i = 1; i < 21; i++) {
+                components.day = i;
+                NSDate *newDate = [localeCalendar dateFromComponents:components];
+                 NSUInteger week = [newDate weekOfCurrentDate];
+                if (week == 1) {
+                    count ++;
+                }
+                if (count == 2) {
+                    NSDateComponents *theComponents = [localeCalendar components:unitFlags fromDate:_theDate];
+                    if (theComponents.day == i) {
+                        _holidayString = @"母亲节";
+                    }
+                    break;
+                }
+            }
+        }
+        if (components.month == 6) {
+            NSInteger count = 0;
+            for (NSInteger i = 1; i < 28; i++) {
+                components.day = i;
+                NSDate *newDate = [localeCalendar dateFromComponents:components];
+                NSUInteger week = [newDate weekOfCurrentDate];
+                if (week == 1) {
+                    count ++;
+                }
+                if (count == 3) {
+                    NSDateComponents *theComponents = [localeCalendar components:unitFlags fromDate:_theDate];
+                    if (theComponents.day == i) {
+                        _holidayString = @"父亲节";
+                    }
+                    break;
+                }
+            }
+        }
     }
     return self;
 }
 // 计算节气
-- (void)calculateJieQi
+- (NSString *)calculateJieQiWithDate:(NSDate *)date
 {
     
     NSCalendar *localeCalendar = [NSCalendar currentCalendar];
     NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:_theDate];
+    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:date];
     NSArray *jieQiArray = @[@[@"立春", @"雨水"], @[@"惊蛰", @"春分"], @[@"清明", @"谷雨"],
                             @[@"立夏", @"小满"], @[@"芒种", @"夏至"], @[@"小暑", @"大暑"],
                             @[@"立秋", @"处暑"], @[@"白露", @"秋分"], @[@"寒露", @"霜降"],
@@ -467,20 +515,25 @@
     NSUInteger day1 = floorf(Y * D_Value + c1) - floorf(L);
     NSUInteger day2 = floorf(Y * D_Value + c2) - floorf(L);
     
+    
+    NSString *jieQiString = nil;
     if (day1 == components.day) {
-        _jieQiString = jieQiArray[index][0];
+        jieQiString = jieQiArray[index][0];
     }
     if (day2 == components.day) {
-        _jieQiString = jieQiArray[index][1];
+        jieQiString = jieQiArray[index][1];
     }
+    return jieQiString;
 }
 
 // 西方节日
-- (void)configureHoliday
+- (NSString *)configureHolidayWithDate:(NSDate *)date
 {
+    NSString *holidayString = nil;
+    
     NSCalendar *localeCalendar = [NSCalendar currentCalendar];
     NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:_theDate];
+    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:date];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"holiday" ofType:@"plist"];
     NSDictionary *holiday = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -493,17 +546,21 @@
         if ([dayContent isKindOfClass:[NSArray class]]) {
             id holidayStrs = [dayContent firstObject];
             if ([holidayStrs isKindOfClass:[NSString class]]) {
-                _holidayString = holidayStrs;
+                holidayString = holidayStrs;
             }
         }
     }
+    
+    return holidayString;
 }
 // 中国节日
-- (void)configureChineseHoliday
+- (NSString *)configureChineseHolidayWithDate:(NSDate *)date
 {
+    NSString *chineseHolidayString = nil;
+    
     NSCalendar *localeCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
     NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:_theDate];
+    NSDateComponents *components = [localeCalendar components:unitFlags fromDate:date];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"chinese_holiday" ofType:@"plist"];
     NSDictionary *holiday = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -514,17 +571,19 @@
     if (components.month == 12) {
         NSInteger days =  [localeCalendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:_theDate].length;
         if (components.day == days) {
-            _chineseHolidayString = @"除夕";
-            return;
+            chineseHolidayString = @"除夕";
+            return chineseHolidayString;
         }
     }
     id monthContent = holiday[monthString];
     if ([monthContent isKindOfClass:[NSDictionary class]]) {
         id holidayStrs = monthContent[dayString];
         if ([holidayStrs isKindOfClass:[NSString class]]) {
-            _chineseHolidayString = holidayStrs;
+            chineseHolidayString = holidayStrs;
         }
     }
+    
+    return chineseHolidayString;
 }
 
 @end

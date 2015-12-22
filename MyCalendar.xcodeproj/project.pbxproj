@@ -47,6 +47,9 @@
 		E7C752901C215A25008E3693 /* chinese_holiday.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7C7528F1C215A25008E3693 /* chinese_holiday.plist */; };
 		E7C752931C216CDD008E3693 /* CustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C752921C216CDD008E3693 /* CustomPickerView.m */; };
 		E7C752961C216D99008E3693 /* PickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C752951C216D99008E3693 /* PickerView.m */; };
+		E7D232231C28FF0600FB5AEC /* YYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D232221C28FF0600FB5AEC /* YYSettingViewController.m */; };
+		E7D232271C2925CC00FB5AEC /* YYConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D232261C2925CC00FB5AEC /* YYConfigure.m */; };
+		E7D2322A1C2930A400FB5AEC /* YYColorSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D232291C2930A400FB5AEC /* YYColorSetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +149,12 @@
 		E7C752921C216CDD008E3693 /* CustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPickerView.m; sourceTree = "<group>"; };
 		E7C752941C216D99008E3693 /* PickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerView.h; sourceTree = "<group>"; };
 		E7C752951C216D99008E3693 /* PickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerView.m; sourceTree = "<group>"; };
+		E7D232211C28FF0600FB5AEC /* YYSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSettingViewController.h; sourceTree = "<group>"; };
+		E7D232221C28FF0600FB5AEC /* YYSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSettingViewController.m; sourceTree = "<group>"; };
+		E7D232251C2925CC00FB5AEC /* YYConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConfigure.h; sourceTree = "<group>"; };
+		E7D232261C2925CC00FB5AEC /* YYConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConfigure.m; sourceTree = "<group>"; };
+		E7D232281C2930A400FB5AEC /* YYColorSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYColorSetViewController.h; sourceTree = "<group>"; };
+		E7D232291C2930A400FB5AEC /* YYColorSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYColorSetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +265,10 @@
 				E7C7528B1C210F9D008E3693 /* YYRootViewController.m */,
 				E7C752871C210F41008E3693 /* YYEventViewController.h */,
 				E7C752881C210F41008E3693 /* YYEventViewController.m */,
+				E7D232211C28FF0600FB5AEC /* YYSettingViewController.h */,
+				E7D232221C28FF0600FB5AEC /* YYSettingViewController.m */,
+				E7D232281C2930A400FB5AEC /* YYColorSetViewController.h */,
+				E7D232291C2930A400FB5AEC /* YYColorSetViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -280,6 +293,7 @@
 		E7C7523D1C210C7F008E3693 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E7D232241C29258200FB5AEC /* Helper */,
 				E7C7523E1C210C7F008E3693 /* Category */,
 				E7C7524B1C210C7F008E3693 /* Controller */,
 				E7C7525C1C210C7F008E3693 /* Headers */,
@@ -368,6 +382,15 @@
 				E7C752701C210C7F008E3693 /* split.h */,
 			);
 			path = libqrencode;
+			sourceTree = "<group>";
+		};
+		E7D232241C29258200FB5AEC /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E7D232251C2925CC00FB5AEC /* YYConfigure.h */,
+				E7D232261C2925CC00FB5AEC /* YYConfigure.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,9 +536,11 @@
 				E7C752721C210C7F008E3693 /* NSString+Common.m in Sources */,
 				E7C752711C210C7F008E3693 /* NSObject+Common.m in Sources */,
 				E778DBB81C2108690095766D /* AppDelegate.m in Sources */,
+				E7D232231C28FF0600FB5AEC /* YYSettingViewController.m in Sources */,
 				E7C752771C210C7F008E3693 /* YYBaseNavigationC.m in Sources */,
 				E7C7527F1C210C7F008E3693 /* bitstream.c in Sources */,
 				E7C752861C210C7F008E3693 /* split.c in Sources */,
+				E7D232271C2925CC00FB5AEC /* YYConfigure.m in Sources */,
 				E7C752891C210F41008E3693 /* YYEventViewController.m in Sources */,
 				E7C752821C210C7F008E3693 /* qrencode.c in Sources */,
 				E793363E1C229A5C0001A0DF /* CustomPopoverView.m in Sources */,
@@ -526,6 +551,7 @@
 				E778DBC11C2108690095766D /* MyCalendar.xcdatamodeld in Sources */,
 				E7C752841C210C7F008E3693 /* qrspec.c in Sources */,
 				E7C752751C210C7F008E3693 /* UIView+Common.m in Sources */,
+				E7D2322A1C2930A400FB5AEC /* YYColorSetViewController.m in Sources */,
 				E7C7523C1C210B8C008E3693 /* MyEventHelper.m in Sources */,
 				E7C7527C1C210C7F008E3693 /* YYBaseTableVC.m in Sources */,
 				E7C7527B1C210C7F008E3693 /* YYBaseSettingVC.m in Sources */,

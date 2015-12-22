@@ -17,6 +17,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    BOOL res = [[NSUserDefaults standardUserDefaults] boolForKey:kHasRunAppKey];
+    if (res == NO) {
+        [YYConfigure configureDefaultValue];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasRunAppKey];
+    }
+    
     return YES;
 }
 

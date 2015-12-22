@@ -184,11 +184,14 @@
             _scrollView.contentOffset = CGPointMake(0, (self.bounds.size.height/_displayRowNumber));
             [_scrollViewArray addObject:_scrollView];
             
+             UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
             _line1 = [[UIView alloc] init];
-            _line1.backgroundColor = kAPPBlueColor;
+            _line1.tag = (i+1)*100+1;
+            _line1.backgroundColor = color;
             [self addSubview:_line1];
             _line2 = [[UIView alloc] init];
-            _line2.backgroundColor = kAPPBlueColor;
+            _line2.tag = (i+1)*100+2;
+            _line2.backgroundColor = color;
             [self addSubview:_line2];
             CGFloat midPageX = _pageHeight*(_displayRowNumber-1)/2;
             _line1.frame = CGRectMake(scrollViewX, midPageX - kBlueLineHeight/2, _scrollView.viewWidth, kBlueLineHeight);
@@ -198,7 +201,7 @@
             [_viewArray addObject:labelArray];
             if (_type == CustomPickerViewTypeTime) {
                 UILabel *label = [[UILabel alloc] init];
-                label.textColor = kAPPBlueColor;
+                label.textColor = color;
                 label.font = [UIFont systemFontOfSize:12];
                 [self addSubview:label];
                 label.text = timeArr[i];
@@ -212,7 +215,7 @@
     }
     
     
-    
+    UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
     for (NSInteger i = 0; i < _dataArray.count; i++) {
         NSMutableArray *labelArray = [_viewArray objectAtIndex:i];
         UIScrollView *scrollView = [_scrollViewArray objectAtIndex:i];
@@ -224,7 +227,7 @@
                 [scrollView addSubview:label];
                 [labelArray addObject:label];
                 if (_type == CustomPickerViewTypeTime) {
-                    label.textColor = kAPPBlueColor;
+                    label.textColor = color;
                 }
                 if (j != 2) {
                     label.textColor = kLineColor;
@@ -262,6 +265,13 @@
     if (_viewArray.count == 0 || _scrollViewArray.count == 0) {
         return;
     }
+    
+    UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
+    UIView *line1 = [self viewWithTag:(components+1)*100+1];
+    UIView *line2 = [self viewWithTag:(components+1)*100+2];
+    line1.backgroundColor = color;
+    line2.backgroundColor = color;
+    
     UIScrollView *scrollView = [_scrollViewArray objectAtIndex:components];
     NSArray *labelArray = [_viewArray objectAtIndex:components];
     NSArray *pageArray = [_dataArray objectAtIndex:components];
@@ -403,12 +413,13 @@
     }
     if ([_scrollViewArray containsObject:scrollView]) {
         NSArray *labelArray = [_viewArray objectAtIndex:[_scrollViewArray indexOfObject:scrollView]];
+        UIColor *color = [YYConfigure colorForKey:kDefaultAppColorKey];
         for (NSInteger i = 0; i < labelArray.count; i++) {
             UILabel *label = [labelArray objectAtIndex:i];
             if (i == index) {
                 label.textColor = [UIColor blackColor];
                 if (_type == CustomPickerViewTypeTime) {
-                    label.textColor = kAPPBlueColor;
+                    label.textColor = color;
                 }
             }
             else {
